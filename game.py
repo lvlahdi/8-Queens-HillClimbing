@@ -66,21 +66,26 @@ relocationList = []
 queensPositions = randomRestart()
 print("Queens positions on the column : ", queensPositions)
 print("Queens initial position: ")
+print('\n***********************\n')
 printBoard(queensPositions)
-print("-----------------------")
+print('\n***********************\n')
+print("==========================================================================")
 
 copyQueensPosition = queensPositions.copy()
 # captureNumList = [[0 for i in range(8)] for i in range(8)]
 relocationCounter = 0
-# [ ] time_captured_each_other = captureNum(queensPositions)
-# [ ]findCaptures()
+
+# TODO: complete these to reduce system sources usage and prevent from doing additional nested loops :
+# [ ] captureNum(queensPositions) :
+# [ ] findCaptures(queensPositions) :
+
 
 while captureNum(queensPositions) > 0:
-    # do, until there is no capture
+    # do it until there is no capture
     relocationCounter += 1
-    print("#{} Iteration ".format(relocationCounter))
-    print("Encountered capture: ", captureNum(queensPositions))
-    print("Queens positions on columns before changing: ", queensPositions)  # tahtadaki taşların konumları
+    print("Step #{} \n".format(relocationCounter))
+    print("*    %s Queens captures each other: \n" %(captureNum(queensPositions)))
+    print("*    Queens positions on columns before changing: \n=>   ", queensPositions)
 
     captureNumList = findCaptures(queensPositions)
     smallestCap = captureNum(queensPositions)  # assigning initial capture number before finding smallest capture number
@@ -92,23 +97,25 @@ while captureNum(queensPositions) > 0:
                 smallestCap = captureNumList[i][j]
                 column, row = i, j
     # print("column, row: ", column, ",", row)
-    print("Smallest number of queens attacking each other ", smallestCap)
+    print("\n*    %s Queens captures each other after relocation(Smallest possible amount of captures)\n" %(smallestCap))
     if column != -1:  # if column or row values changes that means we find next position
         queensPositions[column] = row + 1
-        print("Queens positions columns after relocation a queen: ", queensPositions)  # tahtadaki taşların konumları
+        print("\n*    Queens positions columns after relocation a queen: \n=>   ", queensPositions)
     else:
         # random restart
-        print("Encountered local optimum, random restarting...")
+        print("felt in local optimum, random restarting...\n")
         queensPositions = randomRestart()
         copyQueensPosition = queensPositions.copy()
-        print("Queens positions columns after random restart: ", queensPositions)  # tahtadaki taşların konumları
+        print("*    Queens positions columns after random restart: \n=>   ", queensPositions)
+        print('\n***********************\n')
         printBoard(queensPositions)
-
+        print('\n***********************\n')
     # print("capture counter: ", captureNum(queensPositions))
 
     print("==========================================================================")
 
-print("Final queens positions on columns : ", queensPositions)  # tahtadaki taşların konumları
+print("*    Final queens positions on columns : ", queensPositions)
+print('\n***********************\n')
 printBoard(queensPositions)
-# print("capture counter: ", captureNum(queensPositions))
+print('\n***********************\n')# print("capture counter: ", captureNum(queensPositions))
 relocationList.append(relocationCounter)
